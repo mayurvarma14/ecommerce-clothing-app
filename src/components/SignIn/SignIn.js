@@ -4,6 +4,8 @@ import Input from '../../components/Input/Input';
 
 import './SignIn.scss';
 
+import { signInWithGoogle } from '../../firebase/firebase.util';
+
 class SignIn extends Component {
   state = { email: '', password: '' };
 
@@ -39,7 +41,12 @@ class SignIn extends Component {
             label="password"
             required
           />
-          <Button type="submit">Sign In</Button>
+          <div className="buttons">
+            <Button type="submit">Sign In</Button>
+            <Button onClick={signInWithGoogle} isGoogleSignIn>
+              Sign In with Google
+            </Button>
+          </div>
         </form>
       </div>
     );

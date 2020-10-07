@@ -1,10 +1,12 @@
+import { SET_CURRENT_USER } from './userTypes';
+
 const initialState = {
   currentUser: null,
 };
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {
-    case 'SET_CURRENT_USER':
+    case SET_CURRENT_USER:
       return { ...state, currentUser: payload };
 
     default:

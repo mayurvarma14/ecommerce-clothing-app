@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+
 import logo from '../../assets/logo.png';
 
 import './Header.scss';
@@ -33,4 +35,6 @@ const Header = ({ currentUser }) => {
   );
 };
 
-export default Header;
+export default connect((state) => ({
+  currentUser: state.user.currentUser,
+}))(Header);

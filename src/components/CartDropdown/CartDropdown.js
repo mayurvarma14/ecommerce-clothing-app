@@ -6,9 +6,10 @@ import { withRouter } from 'react-router-dom';
 import Button from '../Button/Button';
 import CartItem from '../CartItem/CartItem';
 import { selectCartItems } from '../../redux/cart/cartSelectors';
+import { toggleCartDropdown } from '../../redux/cart/cartActions';
 import './CartDropdown.scss';
 
-const CartDropdown = ({ cartItems, history }) => {
+const CartDropdown = ({ cartItems, history, toggleCartDropdown }) => {
   return (
     <div className="cart-dropdown">
       <div className="cart-items">
@@ -20,7 +21,14 @@ const CartDropdown = ({ cartItems, history }) => {
           <span className="empty-message">Your cart is empty</span>
         )}
       </div>
-      <Button onClick={() => history.push('/checkout')}>GO TO CHECKOUT</Button>
+      <Button
+        onClick={() => {
+          history.push('/checkout');
+          toggleCartDropdown();
+        }}
+      >
+        GO TO CHECKOUT
+      </Button>
     </div>
   );
 };
@@ -29,6 +37,7 @@ export default withRouter(
   connect(
     createStructuredSelector({
       cartItems: selectCartItems,
-    })
+    }),
+    { toggleCartDropdown }
   )(CartDropdown)
 );

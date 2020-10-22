@@ -1,12 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
 import logo from '../../assets/logo.png';
 import './Header.scss';
 import { auth } from '../../firebase/firebase.util';
 import CartIcon from '../CartIcon/CartIcon';
 import CartDropdown from '../CartDropdown/CartDropdown';
+import { selectCartHidden } from '../../redux/cart/cartSelectors';
+import { selectCurrentUser } from '../../redux/user/userSelectors';
 
 const Header = ({ currentUser, hidden }) => {
   return (
@@ -37,7 +40,9 @@ const Header = ({ currentUser, hidden }) => {
   );
 };
 
-export default connect(({ user: { currentUser }, cart: { hidden } }) => ({
-  currentUser,
-  hidden,
-}))(Header);
+export default connect(
+  createStructuredSelector({
+    currentUser: selectCurrentUser,
+    hidden: selectCartHidden,
+  })
+)(Header);

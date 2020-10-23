@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import logo from '../../assets/logo.png';
 import './Header.scss';
 import { auth } from '../../firebase/firebase.util';
 import CartIcon from '../CartIcon/CartIcon';
@@ -15,7 +14,7 @@ const Header = ({ currentUser, hidden }) => {
   return (
     <div className="header">
       <Link className="logo-container" to="/">
-        <img className="logo" src={logo} alt="logo" />
+        <span className="title">E-Commerce App</span>
       </Link>
       <div className="options">
         <Link className="option" to="/shop">

@@ -8,12 +8,12 @@ import ShopPage from './pages/ShopPage/ShopPage';
 import AuthPage from './pages/AuthPage/AuthPage';
 import Header from './components/Header/Header';
 import CheckoutPage from './pages/CheckoutPage/CheckoutPage';
-import { selectCurrentUser } from './redux/user/userSelectors';
 
 import './App.css';
 
 import { auth, createUserProfileDocument } from './firebase/firebase.util';
 import { setCurrentUser } from './redux/user/userActions';
+import { selectCurrentUser } from './redux/user/userSelectors';
 
 class App extends Component {
   unsubscribeFromAuth = null;

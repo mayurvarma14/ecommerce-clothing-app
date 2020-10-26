@@ -1,12 +1,12 @@
 import React from 'react';
 import Menu from '../../components/Menu/Menu';
-import './HomePage.scss';
+import { HomePageContainer } from './Home.styles';
 
 const HomePage = () => {
   return (
-    <div className="homepage">
+    <HomePageContainer>
       <Menu />
-    </div>
+    </HomePageContainer>
   );
 };
 

@@ -11,29 +11,15 @@ import CheckoutPage from './pages/CheckoutPage/CheckoutPage';
 
 import './App.css';
 
-import { auth, createUserProfileDocument } from './firebase/firebase.util';
-import { setCurrentUser } from './redux/user/userActions';
+import { checkUserSession } from './redux/user/userActions';
 import { selectCurrentUser } from './redux/user/userSelectors';
 
 class App extends Component {
   unsubscribeFromAuth = null;
 
   componentDidMount() {
-    const { setCurrentUser } = this.props;
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
-      if (userAuth) {
-        const userRef = await createUserProfileDocument(userAuth);
-
-        userRef.onSnapshot((snapShot) => {
-          setCurrentUser({
-            id: snapShot.id,
-            ...snapShot.data(),
-          });
-        });
-      } else {
-        setCurrentUser(userAuth);
-      }
-    });
+    const { checkUserSession } = this.props;
+    checkUserSession();
   }
 
   componentWillUnmount() {
@@ -65,6 +51,6 @@ export default connect(
     currentUser: selectCurrentUser,
   }),
   {
-    setCurrentUser,
+    checkUserSession,
   }
 )(App);

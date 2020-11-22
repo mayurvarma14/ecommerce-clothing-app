@@ -3,6 +3,7 @@ import {
   ADD_ITEM,
   CLEAR_ITEM_FROM_CART,
   REMOVE_ITEM,
+  CLEAR_CART,
 } from './cartTypes';
 import { addItemToCart, removeItemFromCart } from './cartUtils';
 
@@ -31,6 +32,11 @@ export default (state = initialState, { type, payload }) => {
       return {
         ...state,
         cartItems: removeItemFromCart(state.cartItems, payload),
+      };
+    case CLEAR_CART:
+      return {
+        ...state,
+        cartItems: [],
       };
     default:
       return state;

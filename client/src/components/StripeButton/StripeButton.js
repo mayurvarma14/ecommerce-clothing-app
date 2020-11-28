@@ -14,6 +14,7 @@ const StripeButton = ({ price }) => {
       data: {
         amount: priceForStripe,
         token: token,
+        description: `Your total is $${price}`,
       },
     })
       .then((response) => {

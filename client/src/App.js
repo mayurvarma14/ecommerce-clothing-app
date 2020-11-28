@@ -9,7 +9,7 @@ import AuthPage from './pages/AuthPage/AuthPage';
 import Header from './components/Header/Header';
 import CheckoutPage from './pages/CheckoutPage/CheckoutPage';
 
-import './App.css';
+import './App.scss';
 
 import { checkUserSession } from './redux/user/userActions';
 import { selectCurrentUser } from './redux/user/userSelectors';

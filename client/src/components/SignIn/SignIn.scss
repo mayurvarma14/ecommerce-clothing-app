@@ -2,7 +2,10 @@
   width: 380px;
   display: flex;
   flex-direction: column;
-
+  @media screen and (max-width: 800px) {
+    width: 100%;
+    padding: 15px;
+  }
   .title {
     margin: 10px 0;
   }
@@ -10,5 +13,10 @@
   .buttons {
     display: flex;
     justify-content: space-between;
+    .button {
+      @media screen and (max-width: 800px) {
+        padding: 0 20px;
+      }
+    }
   }
 }

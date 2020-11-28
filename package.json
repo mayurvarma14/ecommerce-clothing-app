@@ -1,0 +1,21 @@
+{
+  "name": "ecommerce-clothing-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "yarn --cwd ./server start",
+    "build": "yarn --cwd ./client build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mayurvarma14/ecommerce-clothing-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mayurvarma14/ecommerce-clothing-app/issues"
+  },
+  "homepage": "https://github.com/mayurvarma14/ecommerce-clothing-app#readme"
+}

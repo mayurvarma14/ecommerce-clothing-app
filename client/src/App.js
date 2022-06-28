@@ -1,7 +1,6 @@
-import React, { Component, lazy, Suspense } from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
+import React, { lazy, Suspense, useEffect } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import Header from './components/Header/Header';
 import Spinner from './components/Spinner/Spinner';
@@ -10,53 +9,35 @@ import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 import './App.scss';
 
 import { checkUserSession } from './redux/user/userActions';
-import { selectCurrentUser } from './redux/user/userSelectors';
 
 const HomePage = lazy(() => import('./pages/HomePage/HomePage'));
 const ShopPage = lazy(() => import('./pages/ShopPage/ShopPage'));
 const AuthPage = lazy(() => import('./pages/AuthPage/AuthPage'));
 const CheckoutPage = lazy(() => import('./pages/CheckoutPage/CheckoutPage'));
-class App extends Component {
-  unsubscribeFromAuth = null;
+const App = (props) => {
+  const dispatch = useDispatch();
 
-  componentDidMount() {
-    const { checkUserSession } = this.props;
-    checkUserSession();
-  }
+  useEffect(() => {
+    dispatch(checkUserSession());
+  }, [dispatch]);
+  return (
+    <div>
+      <Header />
+      <ErrorBoundary>
+        <Suspense fallback={<Spinner />}>
+          <Routes>
+            <Route index path="/" element={<HomePage />} />
+            <Route path="/shop/*" element={<ShopPage />} />
+            <Route index path="/checkout" element={<CheckoutPage />} />
+            <Route
+              path="/signin"
+              element={props.currentUser ? <Navigate to="/" /> : <AuthPage />}
+            />
+          </Routes>
+        </Suspense>
+      </ErrorBoundary>
+    </div>
+  );
+};
 
-  componentWillUnmount() {
-    this.unsubscribeFromAuth();
-  }
-
-  render() {
-    return (
-      <div>
-        <Header />
-        <Switch>
-          <ErrorBoundary>
-            <Suspense fallback={<Spinner />}>
-              <Route exact path="/" component={HomePage} />
-              <Route path="/shop" component={ShopPage} />
-              <Route exact path="/checkout" component={CheckoutPage} />
-              <Route
-                path="/signin"
-                render={() =>
-                  this.props.currentUser ? <Redirect to="/" /> : <AuthPage />
-                }
-              />
-            </Suspense>
-          </ErrorBoundary>
-        </Switch>
-      </div>
-    );
-  }
-}
-
-export default connect(
-  createStructuredSelector({
-    currentUser: selectCurrentUser,
-  }),
-  {
-    checkUserSession,
-  }
-)(App);
+export default App;

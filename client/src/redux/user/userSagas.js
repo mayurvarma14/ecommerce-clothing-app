@@ -20,7 +20,8 @@ import {
 
 import {
   auth,
-  googleProvider,
+  signInWithGooglePopup,
+  signInAuthUserWithEmailAndPassword,
   createUserProfileDocument,
   getCurrentUser,
 } from '../../firebase/firebase.util';
@@ -41,7 +42,7 @@ export function* getSnapshotFromUserAuth(userAuth, additionalData) {
 
 export function* signInWithGoogle() {
   try {
-    const { user } = yield auth.signInWithPopup(googleProvider);
+    const { user } = yield call(signInWithGooglePopup);
     yield getSnapshotFromUserAuth(user);
   } catch (error) {
     yield put(signInFailure(error));
@@ -50,8 +51,12 @@ export function* signInWithGoogle() {
 
 export function* signInWithEmail({ payload: { email, password } }) {
   try {
-    const { user } = yield auth.signInWithEmailAndPassword(email, password);
-    yield getSnapshotFromUserAuth(user);
+    const { user } = yield call(
+      signInAuthUserWithEmailAndPassword,
+      email,
+      password
+    );
+    yield call(getSnapshotFromUserAuth, user);
   } catch (error) {
     yield put(signInFailure(error));
   }

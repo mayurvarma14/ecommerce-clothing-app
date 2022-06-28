@@ -26,5 +26,5 @@ const CollectionPage = ({ collection }) => {
 };
 
 export default connect((state, ownProps) => ({
-  collection: selectCollection(ownProps.match.params.collectionId)(state),
+  collection: selectCollection(ownProps.params.collectionId)(state),
 }))(CollectionPage);

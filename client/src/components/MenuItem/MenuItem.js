@@ -1,12 +1,14 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import './MenuItem.scss';
 
-const MenuItem = ({ title, imageUrl, size, history, linkUrl, match }) => {
+const MenuItem = ({ title, imageUrl, size, linkUrl }) => {
+  let navigate = useNavigate();
+  const { pathname } = useLocation();
   return (
     <div
       className={`menu-item ${size}`}
-      onClick={() => history.push(`${match.url}${linkUrl}`)}
+      onClick={() => navigate(`${pathname}${linkUrl}`)}
     >
       <div
         className="background-image"
@@ -20,4 +22,4 @@ const MenuItem = ({ title, imageUrl, size, history, linkUrl, match }) => {
   );
 };
 
-export default withRouter(MenuItem);
+export default MenuItem;
